@@ -1,0 +1,27 @@
+meta {
+  name: POST /notes (400 - validation missing title)
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{baseUrl}}/notes
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "content": "Falta title => @NotBlank"
+  }
+}
+
+assert {
+  status: 400
+}
+

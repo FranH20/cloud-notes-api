@@ -1,0 +1,19 @@
+meta {
+  name: GET /notes/{id} (404 - not found)
+  type: http
+  seq: 31
+}
+
+get {
+  url: {{baseUrl}}/notes/non-existent-id
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+assert {
+  status: 404
+}
+

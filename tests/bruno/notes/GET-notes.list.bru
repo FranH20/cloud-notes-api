@@ -1,0 +1,19 @@
+meta {
+  name: GET /notes (200 - list)
+  type: http
+  seq: 20
+}
+
+get {
+  url: {{baseUrl}}/notes
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+assert {
+  status: 200
+}
+

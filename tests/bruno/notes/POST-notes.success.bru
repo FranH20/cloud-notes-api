@@ -1,0 +1,28 @@
+meta {
+  name: POST /notes (201 - success)
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/notes
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "title": "Aprender AZ-204",
+    "content": "Deploy en Azure App Service (Free tier)"
+  }
+}
+
+assert {
+  status: 201
+}
+

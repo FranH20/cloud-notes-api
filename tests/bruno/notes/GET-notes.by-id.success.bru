@@ -1,0 +1,25 @@
+meta {
+  name: GET /notes/{id} (200 - success)
+  type: http
+  seq: 30
+}
+
+# Tip: primero ejecuta POST /notes (201 - success) y copia el id retornado.
+
+get {
+  url: {{baseUrl}}/notes/{{noteId}}
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+vars {
+  noteId: REPLACE_ME
+}
+
+assert {
+  status: 200
+}
+

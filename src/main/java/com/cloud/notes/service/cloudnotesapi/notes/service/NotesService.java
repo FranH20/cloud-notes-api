@@ -26,27 +26,31 @@ public class NotesService {
         Note note = new Note(id, title, content, createdAt);
         store.put(id, note);
 
-        log.info("Note created id={} title={}", id, title);
+        int contentLen = content == null ? 0 : content.length();
+        log.info("note.created id={} title=\"{}\" contentLength={}", id, title, contentLen);
         return note;
     }
 
     public List<Note> list() {
         List<Note> notes = new ArrayList<>(store.values());
         notes.sort(Comparator.comparing(Note::getCreatedAt).reversed());
+        log.debug("note.list count={}", notes.size());
         return notes;
     }
 
     public Optional<Note> get(String id) {
-        return Optional.ofNullable(store.get(id));
+        Optional<Note> result = Optional.ofNullable(store.get(id));
+        log.debug("note.get id={} found={}", id, result.isPresent());
+        return result;
     }
 
     public boolean delete(String id) {
         Note removed = store.remove(id);
         if (removed != null) {
-            log.info("Note deleted id={}", id);
+            log.info("note.deleted id={}", id);
             return true;
         }
+        log.warn("note.delete.miss id={}", id);
         return false;
     }
 }
-

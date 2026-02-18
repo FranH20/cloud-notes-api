@@ -1,0 +1,19 @@
+meta {
+  name: GET /health (200)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/health
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+assert {
+  status: 200
+}
+

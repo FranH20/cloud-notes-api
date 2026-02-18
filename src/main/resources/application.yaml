@@ -2,10 +2,11 @@ spring:
   application:
     name: Cloud Notes API
 
-    com.cloud.notes.service.cloudnotesapi: INFO
-    root: INFO
-  level:
-logging:
-
-  port: ${PORT:8080}
 server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    root: INFO
+    com.cloud.notes.service.cloudnotesapi: DEBUG
+    org.springframework.web: INFO

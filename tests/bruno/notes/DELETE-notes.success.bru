@@ -1,0 +1,25 @@
+meta {
+  name: DELETE /notes/{id} (204 - success)
+  type: http
+  seq: 40
+}
+
+# Tip: primero ejecuta POST /notes (201 - success) y copia el id retornado.
+
+delete {
+  url: {{baseUrl}}/notes/{{noteId}}
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+vars {
+  noteId: REPLACE_ME
+}
+
+assert {
+  status: 204
+}
+

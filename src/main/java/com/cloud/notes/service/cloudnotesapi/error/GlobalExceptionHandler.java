@@ -25,6 +25,8 @@ public class GlobalExceptionHandler {
                 .map(this::toFieldError)
                 .toList();
 
+        log.warn("error.validation method={} path={} fields={}", request.getMethod(), request.getRequestURI(), fieldErrors.size());
+
         ApiError body = new ApiError(
                 Instant.now(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -38,6 +40,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ApiError> handleConstraintViolation(ConstraintViolationException ex, HttpServletRequest request) {
+        log.warn("error.constraintViolation method={} path={} msg=\"{}\"", request.getMethod(), request.getRequestURI(), ex.getMessage());
+
         ApiError body = new ApiError(
                 Instant.now(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -51,6 +55,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ApiError> handleNotFound(NotFoundException ex, HttpServletRequest request) {
+        log.warn("error.notFound method={} path={} msg=\"{}\"", request.getMethod(), request.getRequestURI(), ex.getMessage());
+
         ApiError body = new ApiError(
                 Instant.now(),
                 HttpStatus.NOT_FOUND.value(),
@@ -64,7 +70,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleUnexpected(Exception ex, HttpServletRequest request) {
-        log.error("Unhandled error", ex);
+        log.error("error.unhandled method={} path={}", request.getMethod(), request.getRequestURI(), ex);
+
         ApiError body = new ApiError(
                 Instant.now(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
@@ -81,4 +88,3 @@ public class GlobalExceptionHandler {
         return new ApiError.FieldError(fe.getField(), message);
     }
 }
-
